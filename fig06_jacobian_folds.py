@@ -92,25 +92,50 @@ def main():
     axc.set_title(r'(c) remapped $D$: suppression at fold-adjacent $L^{\star}$')
     axc.legend(fontsize=9, loc='lower right')
     # ---- (d) convergence + fold robustness ----
+    # ---- (d) convergence + fold robustness (categorical axis, info box) ----
+    bm_grid = [120.0, 400.0, 800.0, 1200.0]
+    res_all = ['36 / 0.02', '72 / 0.02', '72 / 0.01']
+    fold_info = []
     for i, (case, name) in enumerate(IG):
         z = np.load(os.path.join(_DATA, f'conv_{case}.npz'),
                     allow_pickle=True)
         labels = [f'{int(a)}/{ds:.2f}' for a, ds in zip(z['n_azims'], z['ds'])]
         x = np.arange(len(labels))
         lg = z['L_grid']
+        ls = '-' if case == 'uranus_g3' else '--'
+        mk = 'o' if case == 'uranus_g3' else 's'
+        c = f'C{i}'
         for j, b in enumerate(bm_grid):
-            axd.plot(x, lg[:, j], 'o-', ms=4, lw=1.0, color=f'C{i}',
-                     alpha=0.45 + 0.55 * (1 - j / len(bm_grid)))
+            if case == 'neptune_g3' and j >= 2 and lg[-1, j] < 1.0:
+                axd.plot(x, lg[:, j], ls=ls, marker=mk, ms=3.5, lw=1.0,
+                         color=c, alpha=0.45, mfc='none')
+            else:
+                axd.plot(x, lg[:, j], ls=ls, marker=mk, ms=3.5, lw=0.9,
+                         color=c, alpha=0.45)
+        axd.plot(x, lg[:, 0], ls=ls, marker=mk, ms=6, lw=1.8, color=c,
+                 label=name)
         folds = [len(np.asarray(f)) for f in z['fold_Bm']]
-        axd.annotate(f'{name}\nfolds: {folds}', xy=(x[0], lg[0, 1]),
-                     xytext=(x[0] + 0.1, lg[0, 1] + 1.5), fontsize=9, 
-                     va='center')
-    axd.set_xticks(range(len(labels)))
-    axd.set_xticklabels(labels, rotation=15, fontsize=9, )
-    axd.set_xlabel('resolution (n_azim / ds)')
+        fold_info.append(f'{name}: {folds[0]} -> {folds[1]}'
+                         + (f' -> {folds[2]}' if len(folds) > 2 else ''))
+        if case == 'neptune_g3':
+            axd.annotate('loss-cone\nregion', xy=(x[-1], lg[-1, 3]),
+                         xytext=(x[-1] - 0.55, 1.8), fontsize=8,
+                         arrowprops=dict(arrowstyle='->', lw=0.7),
+                         color=c)
+    info = 'Fold counts per resolution:\n' + '\n'.join(
+        '\u2022 ' + s for s in fold_info)
+    axd.text(0.95, 0.95, info, transform=axd.transAxes, fontsize=8.5,
+             verticalalignment='top', horizontalalignment='right',
+             bbox=dict(boxstyle='round,pad=0.45', facecolor='white',
+                       edgecolor='#cccccc', alpha=0.9))
+    axd.set_xticks(range(len(res_all)))
+    axd.set_xticklabels(res_all, fontsize=9.5)
+    axd.set_xlim(-0.35, len(res_all) - 0.65)
+    axd.set_xlabel(r'Resolution ($n_{\rm az}$ / $ds$)')
     axd.set_ylabel(r'$L^{\star}(B_m)$ [R]')
-    axd.set_title(r'(d) table convergence; fold counts per resolution')
+    axd.set_title(r'(d) Table convergence and fold counts')
     axd.set_ylim(0, 7)
+    axd.legend(loc='upper left', fontsize=9)
     fig.tight_layout()
     fig.savefig('fig06_jacobian_folds.png')
     fig.savefig('fig06_jacobian_folds.pdf')
