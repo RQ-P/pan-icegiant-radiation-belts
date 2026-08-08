@@ -15,5 +15,5 @@ def setup(figsize=DOUBLE, dpi=600, rows=1):
     elif figsize is DOUBLE:
         figsize = (6.69, 4.6)
     plt.style.use(_BASE)
-    plt.rcParams.update({'figure.figsize': figsize, 'savefig.dpi': dpi, 'figure.dpi': 100, 'font.size': 9, 'axes.labelsize': 9, 'axes.titlesize': 9, 'xtick.labelsize': 8, 'ytick.labelsize': 8, 'legend.fontsize': 8, 'lines.linewidth': 1.2, 'axes.grid': False, 'savefig.bbox': 'tight', 'savefig.pad_inches': 0.03, 'axes.prop_cycle': matplotlib.cycler(color=CYCLE)})
+    plt.rcParams.update({'figure.figsize': figsize, 'savefig.dpi': dpi, 'figure.dpi': 100, 'font.size': 10.5, 'axes.labelsize': 10.5, 'axes.titlesize': 10.5, 'xtick.labelsize': 9.5, 'ytick.labelsize': 9.5, 'legend.fontsize': 9.5, 'lines.linewidth': 1.2, 'axes.grid': False, 'savefig.bbox': 'tight', 'savefig.pad_inches': 0.03, 'axes.prop_cycle': matplotlib.cycler(color=CYCLE)})
     return plt
