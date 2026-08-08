@@ -99,5 +99,24 @@ This package reproduces all data tables and figures of the paper.
 - Dipole self-checks: V1/V2 ~1e-8, V4 ~1e-15, finite-alpha Phi
   conservation ~2e-6.
 
+6. NOTES
+----------------------------------------------------------------
+- All results (figures, tables, and key numbers of the manuscript) are
+  contained in the .npz data files in this repository: run the fig*.py
+  scripts to regenerate every figure, no further computation needed.
+- build_data.py regenerates the data from scratch. It imports four
+  core modules (ice_giant_field.py, drift_shell.py, shell_walk.py,
+  module1c_drift_invariant.py, module3_dll_star.py) that implement the
+  spherical-harmonic fields and the shell-walking construction; these
+  modules are released with the companion manuscript of this study and
+  are available from the author on request. The .npz files themselves
+  are the complete, versioned results.
+- build_data.py long modes take of order an hour each (tables dominate).
+- Neptune alpha <= 60 deg results are loss-cone-limited upper bounds by
+  design (reflections dominate the guiding-center integration).
 
-
+7. MANUSCRIPT
+----------------------------------------------------------------
+The LaTeX manuscript (Icarus, elsarticle, author-year citations) is
+provided with the paper submission; contact the author for a copy of the
+generating scripts, highlights, and writing guidelines.
