@@ -99,22 +99,5 @@ This package reproduces all data tables and figures of the paper.
 - Dipole self-checks: V1/V2 ~1e-8, V4 ~1e-15, finite-alpha Phi
   conservation ~2e-6.
 
-6. NOTES
-----------------------------------------------------------------
-- The frozen core (ice_giant_field.py, drift_shell.py, shell_walk.py,
-  phase_b_run.py) is not part of this package but is required to run
-  build_data.py; it lives in the project root.
-- build_data.py long modes take of order an hour each (tables dominate).
-- Neptune alpha <= 60 deg results are loss-cone-limited upper bounds by
-  design (reflections dominate the guiding-center integration).
 
-7. MANUSCRIPT
-----------------------------------------------------------------
-- LaTeX: ../Icarus_template/paper2.tex (elsarticle, author-year).
-  Compile: pdflatex paper2 && bibtex paper2 && pdflatex paper2
-           && pdflatex paper2
-- Highlights: ../Icarus_template/Highlights.txt (3-5 bullets, <=85
-  characters each, submitted as a separate file).
-- Writing constraints: ../Regulation/Icarus_Submission_Guidelines.md
-  and ../Regulation/Icarus_Writing_Style_Summary.md;
-  references: ../Regulation/paper2_references.md (Crossref-verified).
+
